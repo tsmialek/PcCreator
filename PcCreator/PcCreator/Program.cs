@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IPcService, MemoryPcService>();
+builder.Services.AddDbContext<Data.AppDbContext>();
+builder.Services.AddTransient<IPcService, EFPcService>();
 
 var app = builder.Build();
 

@@ -1,4 +1,6 @@
-﻿namespace PcCreator.Models
+﻿using PcCreator.Models.PcCreator;
+
+namespace PcCreator.Models
 {
     public class MemoryPcService : IPcService
     {
