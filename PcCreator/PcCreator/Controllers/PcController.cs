@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PcCreator.Models;
 
 namespace PcCreator.Controllers
@@ -23,7 +24,12 @@ namespace PcCreator.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            Pc model = new Pc();
+            model.Cpus = _pcService
+                .FindAllCpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                .ToList();
+            return View(model);
         }
 
         [HttpPost]
@@ -36,9 +42,14 @@ namespace PcCreator.Controllers
             }
             else
             {
+                pc.Cpus = _pcService
+                    .FindAllCpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                    .ToList();
+
                 SetValidationClasses();
                 // Przekazanie słownika z błędami do widoku
-                return View(pc);   
+                return View(pc);
             }
         }
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PcCreator.Models.PcCreator;
 using System.ComponentModel.DataAnnotations;
 
@@ -42,5 +44,11 @@ namespace PcCreator.Models
         [Display(Name = "Data oddania do użytku")]
         [DataType(DataType.Date)]
         public DateTime? ProductionDate { get; set; }
+
+        [HiddenInput]
+        public int CpuId { get; set; }
+
+        [ValidateNever]
+        public List<SelectListItem> Cpus { get; set; }
     }
 }

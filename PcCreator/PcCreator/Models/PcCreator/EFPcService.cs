@@ -1,4 +1,5 @@
 ﻿using Data;
+using Data.Entities;
 using PcCreator.Mappers;
     using PcCreator.Models.PcCreator;
 
@@ -34,6 +35,11 @@ using PcCreator.Mappers;
             }
 
             return false;
+        }
+
+        public List<CpuEntity> FindAllCpusForViewModel()
+        {
+            return _context.Cpus.ToList();
         }
 
         public Pc? FindById(int id)

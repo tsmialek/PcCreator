@@ -8,6 +8,7 @@ namespace Data
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<PcEntity> Pcs { get; set; }
+        public DbSet<CpuEntity> Cpus { get; set; }
         private string DbPath { get; set; }
 
         public AppDbContext()
@@ -116,6 +117,44 @@ namespace Data
                 RoleId = User_Role_ID,
                 UserId = Kamil_ID
             });
+
+            modelBuilder.Entity<PcEntity>()
+                .HasOne(e => e.Cpu)
+                .WithMany(e => e.Pcs)
+                .HasForeignKey(e => e.CpuId);
+
+            modelBuilder.Entity<CpuEntity>().HasData(
+                new CpuEntity
+                {
+                    Id = 1,
+                    Name = "Intel i5 8600k",
+                    Cores = 4,
+                    Threads = 8,
+                    Frequency = 3.4f,
+                    TurboFrequency = 4.2f,
+                    L3Cache = 6
+                },
+                new CpuEntity
+                {
+                    Id = 2,
+                    Name = "Intel i7 8700",
+                    Cores = 6,
+                    Threads = 12,
+                    Frequency = 3.2f,
+                    TurboFrequency = 4.6f,
+                    L3Cache = 12
+                },
+                new CpuEntity
+                {
+                    Id = 3,
+                    Name = "Intel i9",
+                    Cores = 8,
+                    Threads = 16,
+                    Frequency = 3.6f,
+                    TurboFrequency = 5.0f,
+                    L3Cache = 16
+                }
+                );
         }
     }
 }

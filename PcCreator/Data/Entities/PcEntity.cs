@@ -39,5 +39,8 @@ namespace Data.Entities
         [Column("production_date")]
         public DateTime? ProductionDate { get; set; }
 
+        public int CpuId { get; set; }
+        public CpuEntity? Cpu { get; set; }
+
     }
 }

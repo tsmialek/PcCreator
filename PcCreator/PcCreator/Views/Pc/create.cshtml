@@ -29,6 +29,11 @@
         </div>
 
         <div class="form-floating mb-4">
+            <select asp-for="CpuId" id="" class="form-control" asp-items="@Model.Cpus" placeholder="Dokładny Model procesora"></select>
+            <label for="" asp-for="Dokładny model procesora"></label>
+        </div>
+
+        <div class="form-floating mb-4">
             <input type="text" asp-for="RAM" id="" class="form-control @ViewData["RAMClass"]?.ToString()" placeholder="Pamięć RAM" />
             <label for="" asp-for="RAM"></label>
             <span asp-validation-for="RAM" class="small text-danger"></span>
