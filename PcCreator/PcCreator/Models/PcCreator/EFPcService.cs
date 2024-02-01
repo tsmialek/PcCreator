@@ -1,12 +1,12 @@
 ﻿using Data;
 using PcCreator.Mappers;
-using PcCreator.Models.PcCreator;
+    using PcCreator.Models.PcCreator;
 
-namespace PcCreator.Models
-{
-    public class EFPcService : IPcService
+    namespace PcCreator.Models
     {
-        private readonly AppDbContext _context;
+        public class EFPcService : IPcService
+        {
+            private readonly AppDbContext _context;
         private IDateTimeProvider _timeProvider;
 
         public EFPcService()
@@ -18,7 +18,7 @@ namespace PcCreator.Models
         public int Add(Pc pc)
         {
             var e = _context.Pcs.Add(PcMapper.ToEntity(pc));
-            e.Entity.Created = _timeProvider.GetCurrentDateTime().Date;
+            e.Entity.Created = _timeProvider.GetCurrentDateTime();
             _context.SaveChanges();
             return e.Entity.Id;
         }

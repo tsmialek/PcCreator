@@ -8,6 +8,7 @@ namespace PcCreator.Mappers
         public static Pc ToModel(PcEntity entity) => new Pc
         {
             Id = entity.Id,
+            Created = entity.Created,
             Name = entity.Name,
             Processor = entity.Processor,
             RAM = entity.RAM,
