@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PcCreator.Models;
 
 namespace PcCreator.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PcController : Controller
     {
         private readonly IPcService _pcService;
@@ -12,6 +14,7 @@ namespace PcCreator.Controllers
             _pcService = pcService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(_pcService.GetAll());

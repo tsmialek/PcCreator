@@ -34,7 +34,7 @@ namespace Data.Entities
         [Required]
         public string GPU { get; set; }
 
-        public string Manufacturer { get; set; }
+        public string? Manufacturer { get; set; }
 
         [Column("production_date")]
         public DateTime? ProductionDate { get; set; }
