@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PcCreator.Models.PcCreator;
 using System.ComponentModel.DataAnnotations;
 
 namespace PcCreator.Models

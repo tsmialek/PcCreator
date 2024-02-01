@@ -22,7 +22,26 @@
         <tbody>
             @foreach (var property in ViewData.ModelMetadata.Properties)
             {
-                if (property.Name != "Id" && property.Name != "ProductionDate")
+                if (property.Name == "Created")
+                {
+                    if (property.PropertyGetter(Model) is not null)
+                    {
+                        DateTime propertyValue = (DateTime)property.PropertyGetter(Model);
+                        <tr>
+                            <td>Dodano do bazy</td>
+                            <td>@propertyValue.Date.ToString("dd-MM-yyyy")</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@property.DisplayName</td>
+                            <td>---</td>
+                        </tr>
+                    }
+                }
+
+                if (property.Name != "Id" && property.Name != "ProductionDate" && property.Name != "Created")
                 {
                     var propertyValue = property.PropertyGetter(Model);
                     <tr>

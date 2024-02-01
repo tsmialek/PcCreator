@@ -1,4 +1,4 @@
-﻿namespace PcCreator.Models
+﻿namespace PcCreator.Models.PcCreator
 {
     public interface IDateTimeProvider
     {
