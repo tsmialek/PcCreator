@@ -1,4 +1,5 @@
-﻿using PcCreator.Models.PcCreator;
+﻿using Data.Entities;
+using PcCreator.Models.PcCreator;
 
 namespace PcCreator.Models
 {
@@ -31,6 +32,11 @@ namespace PcCreator.Models
             }
             else
                 return false;
+        }
+
+        public List<CpuEntity> FindAllCpusForViewModel()
+        {
+            throw new NotImplementedException();
         }
 
         public Pc? FindById(int id)

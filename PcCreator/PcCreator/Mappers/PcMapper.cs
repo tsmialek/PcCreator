@@ -16,7 +16,8 @@ namespace PcCreator.Mappers
             DiskType = (DiskType)Enum.Parse(typeof(DiskType), entity.DiskType),
             GPU = entity.GPU,
             Manufacturer = entity.Manufacturer,
-            ProductionDate = entity.ProductionDate
+            ProductionDate = entity.ProductionDate,
+            CpuId = entity.CpuId,
         };
 
         public static PcEntity ToEntity(Pc model) => new PcEntity
@@ -30,7 +31,8 @@ namespace PcCreator.Mappers
             DiskType = model.DiskType.ToString(),
             GPU = model.GPU,
             Manufacturer = model.Manufacturer,
-            ProductionDate = model.ProductionDate
+            ProductionDate = model.ProductionDate,
+            CpuId = model.CpuId,
         };
 
     }

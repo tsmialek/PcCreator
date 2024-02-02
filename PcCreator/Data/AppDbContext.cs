@@ -15,7 +15,7 @@ namespace Data
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "PcCreator.db");
+            DbPath = System.IO.Path.Join(path, "PcCreator_v1.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={DbPath}");
