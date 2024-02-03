@@ -10,5 +10,6 @@ namespace PcCreator.Models
         List<Pc> GetAll();
         Pc? FindById(int id);
         List<CpuEntity> FindAllCpusForViewModel();
+        List<GpuEntity> FindAllGpusForViewModel();
     }
 }

@@ -18,25 +18,17 @@ namespace PcCreator.Models
         [Required(ErrorMessage = "Musisz podać nazwę")]
         public string Name { get; set; }
 
-        [Display(Name = "Procesor")]
-        [Required(ErrorMessage = "Należy wybrać model procesora")]
-        public string Processor { get; set; }
-
         [Display(Name = "Pamięć RAM")]
         [Required(ErrorMessage = "Należy wybrać ilość pamięci RAM")]
         public string RAM { get; set; }
 
-        [Display(Name = "Model dysku")]
+        [Display(Name = "Wielkość dysku")]
         [Required(ErrorMessage = "Należy wybrać ilosć dostępnej pamięci")]
         public string Disk { get; set; }
 
         [Display(Name = "Typ dysku")]
         [Required(ErrorMessage = "Należy wybrać typ dysku")]
         public DiskType DiskType { get; set; }
-
-        [Display(Name = "Model karty graficznej")]
-        [Required(ErrorMessage = "Należy wybrać model karty graficznej")]
-        public string GPU { get; set; }
 
         [Display(Name = "Producent")]
         public string? Manufacturer { get; set; }
@@ -47,8 +39,12 @@ namespace PcCreator.Models
 
         [HiddenInput]
         public int CpuId { get; set; }
-
         [ValidateNever]
         public List<SelectListItem> Cpus { get; set; }
+
+        [HiddenInput]
+        public int GpuId { get; set; }
+        [ValidateNever]
+        public List<SelectListItem> Gpus { get; set;}
     }
 }

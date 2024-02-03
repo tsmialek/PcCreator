@@ -42,6 +42,11 @@ using PcCreator.Mappers;
             return _context.Cpus.ToList();
         }
 
+        public List<GpuEntity> FindAllGpusForViewModel()
+        {
+            return _context.Gpus.ToList();
+        }
+
         public Pc? FindById(int id)
         {
             return PcMapper.ToModel(_context.Pcs.Find(id));
@@ -59,11 +64,12 @@ using PcCreator.Mappers;
             {
                 // Teraz aktualizujemy właściwości istniejącego obiektu
                 entityToUpdate.Name = pc.Name;
-                entityToUpdate.Processor = pc.Processor;
+                entityToUpdate.CpuId = pc.CpuId;
                 entityToUpdate.RAM = pc.RAM;
                 entityToUpdate.Disk = pc.Disk;
                 entityToUpdate.DiskType = pc.DiskType.ToString();
-                entityToUpdate.GPU = pc.GPU;
+                entityToUpdate.CpuId = pc.CpuId;
+                entityToUpdate.GpuId = pc.GpuId;
                 entityToUpdate.Manufacturer = pc.Manufacturer;
                 entityToUpdate.ProductionDate = pc.ProductionDate;
 

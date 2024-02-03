@@ -39,6 +39,11 @@ namespace PcCreator.Models
             throw new NotImplementedException();
         }
 
+        public List<GpuEntity> FindAllGpusForViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
         public Pc? FindById(int id)
         {
             return _pcs.ContainsKey(id) ? _pcs[id] : null;

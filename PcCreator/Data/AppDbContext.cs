@@ -9,13 +9,14 @@ namespace Data
     {
         public DbSet<PcEntity> Pcs { get; set; }
         public DbSet<CpuEntity> Cpus { get; set; }
+        public DbSet<GpuEntity> Gpus { get; set; }
         private string DbPath { get; set; }
 
         public AppDbContext()
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "PcCreator_v1.db");
+            DbPath = System.IO.Path.Join(path, "PcCreator_v3.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={DbPath}");
@@ -122,6 +123,20 @@ namespace Data
                 .HasOne(e => e.Cpu)
                 .WithMany(e => e.Pcs)
                 .HasForeignKey(e => e.CpuId);
+
+            modelBuilder.Entity<PcEntity>()
+                .HasOne(e => e.Gpu)
+                .WithMany(e => e.Pcs)
+                .HasForeignKey(e => e.GpuId);
+
+            modelBuilder.Entity<GpuEntity>().HasData(
+                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 1050", VRam = 2, Id = 1 },
+                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 1060 GB", VRam = 6, Id = 2 },
+                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 1070", VRam = 8, Id = 3 },
+                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 1080", VRam = 8, Id = 4 },
+                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 2050", VRam = 4, Id = 5 },
+                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 2070", VRam = 8, Id = 6 }
+                );
 
             modelBuilder.Entity<CpuEntity>().HasData(
                 new CpuEntity

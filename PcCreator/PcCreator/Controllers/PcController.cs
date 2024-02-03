@@ -29,6 +29,12 @@ namespace PcCreator.Controllers
                 .FindAllCpusForViewModel()
                 .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
                 .ToList();
+
+            model.Gpus = _pcService
+                .FindAllGpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
+                .ToList();
+
             return View(model);
         }
 
@@ -45,6 +51,11 @@ namespace PcCreator.Controllers
                 pc.Cpus = _pcService
                     .FindAllCpusForViewModel()
                     .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                    .ToList();
+
+                pc.Gpus = _pcService
+                    .FindAllGpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
                     .ToList();
 
                 SetValidationClasses();
@@ -67,7 +78,18 @@ namespace PcCreator.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_pcService.FindById(id));
+            var model = _pcService.FindById(id);
+            model.Cpus = _pcService
+                .FindAllCpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                .ToList();
+
+            model.Gpus = _pcService
+                .FindAllGpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
+                .ToList();
+
+            return View(model);
         }
 
         [HttpPost]
@@ -80,6 +102,16 @@ namespace PcCreator.Controllers
             }
             else
             {
+                pc.Cpus = _pcService
+                    .FindAllCpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                    .ToList();
+
+                pc.Gpus = _pcService
+                    .FindAllGpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
+                    .ToList();
+
                 SetValidationClasses();
 
                 // Zwróć ten sam widok z aktualnym modelem do poprawy
