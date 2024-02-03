@@ -49,6 +49,16 @@ namespace PcCreator.Models
             return _pcs.ContainsKey(id) ? _pcs[id] : null;
         }
 
+        public CpuEntity? FindCpuById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GpuEntity? FindGpuById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Pc> GetAll()
         {
             return _pcs.Values.ToList();

@@ -12,6 +12,7 @@ namespace PcCreator.Models
         public int Id { get; set; }
 
         [HiddenInput]
+        [Display(Name = "Data utworzenia")]
         public DateTime Created { get; set; }
 
         [Display(Name = "Nazwa")]

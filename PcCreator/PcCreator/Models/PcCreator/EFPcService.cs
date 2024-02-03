@@ -47,6 +47,16 @@ using PcCreator.Mappers;
             return _context.Gpus.ToList();
         }
 
+        public GpuEntity? FindGpuById(int id)
+        {
+            return _context.Gpus.Find(id);
+        }
+
+        public CpuEntity? FindCpuById(int id)
+        {
+            return _context.Cpus.Find(id);
+        }
+
         public Pc? FindById(int id)
         {
             return PcMapper.ToModel(_context.Pcs.Find(id));

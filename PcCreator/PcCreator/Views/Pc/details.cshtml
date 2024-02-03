@@ -1,4 +1,6 @@
-﻿@model Pc
+﻿@using PcCreator.Models.PcCreator;
+@using System.ComponentModel.DataAnnotations;
+@model PcDetailsViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -20,55 +22,67 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var property in ViewData.ModelMetadata.Properties)
-            {
-                if (property.Name == "Created")
-                {
-                    if (property.PropertyGetter(Model) is not null)
-                    {
-                        DateTime propertyValue = (DateTime)property.PropertyGetter(Model);
-                        <tr>
-                            <td>Dodano do bazy</td>
-                            <td>@propertyValue.Date.ToString("dd-MM-yyyy")</td>
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr>
-                            <td>@property.DisplayName</td>
-                            <td>---</td>
-                        </tr>
-                    }
-                }
+            @foreach (var property in Model.Pc.GetType().GetProperties())
+            {                    
+                var displayAttribute = (DisplayAttribute)Attribute.GetCustomAttribute(property, typeof(DisplayAttribute));
+                string displayName = displayAttribute?.Name ?? property.Name;
 
-                if (property.Name != "Id" && property.Name != "ProductionDate" && property.Name != "Created")
+                if (property.Name != "Id" && property.Name != "CpuId" && property.Name != "GpuId" && property.Name != "Created" && property.Name != "ProductionDate" 
+                    && property.Name != "Cpus" && property.Name != "Gpus")
                 {
-                    var propertyValue = property.PropertyGetter(Model);
+
+
                     <tr>
-                        <td>@property.DisplayName</td>
-                        <td>@(propertyValue is null ? "---" : propertyValue)</td>
+                        <td>@displayName</td>
+                        <td>@property.GetValue(Model.Pc)</td>
                     </tr>
                 }
 
-                if (property.Name == "ProductionDate")
+                if(property.Name == "Created" || property.Name == "ProductionDate")
                 {
-                    if (property.PropertyGetter(Model) is not null)
-                    {
-                        DateTime propertyValue = (DateTime)property.PropertyGetter(Model);
-                        <tr>
-                            <td>@property.DisplayName</td>
-                            <td>@propertyValue.Date.ToString("dd-MM-yyyy")</td>
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr>
-                            <td>@property.DisplayName</td>
-                            <td>---</td>
-                        </tr>
-                    }
+                    DateTime propertyValue = (DateTime)property.GetValue(Model.Pc);
+                    <tr>
+                        <td>@displayName</td>
+                        <td>@propertyValue.Date.ToString("dd-MM-yyyy")</td>
+                    </tr>
                 }
             }
+            <thead class="table-primary">
+                <th colspan="2">Procesor</th>
+            </thead>
+
+            @foreach(var property in Model.Cpu.GetType().GetProperties())
+            {
+                var displayAttribute = (DisplayAttribute)Attribute.GetCustomAttribute(property, typeof(DisplayAttribute));
+                string displayName = displayAttribute?.Name ?? property.Name;
+
+                if (property.Name != "Id" && property.Name != "Pcs")
+                {
+                    <tr>
+                        <td>@displayName</td>
+                        <td>@property.GetValue(Model.Cpu)</td>
+                    </tr>
+                }
+            }
+
+            <thead class="table-primary">
+            <th colspan="2">Karta Graficzna</th>
+            </thead>
+
+            @foreach (var property in Model.Gpu.GetType().GetProperties())
+            {
+                var displayAttribute = (DisplayAttribute)Attribute.GetCustomAttribute(property, typeof(DisplayAttribute));
+                string displayName = displayAttribute?.Name ?? property.Name;
+
+                if (property.Name != "Id" && property.Name != "Pcs")
+                {
+                <tr>
+                    <td>@displayName</td>
+                    <td>@property.GetValue(Model.Gpu)</td>
+                </tr>
+                }
+            }
+            
         </tbody>
     </table>
 </div>

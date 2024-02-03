@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PcCreator.Models;
+using PcCreator.Models.PcCreator;
 
 namespace PcCreator.Controllers
 {
@@ -66,7 +67,15 @@ namespace PcCreator.Controllers
 
         public IActionResult Details(int id)
         {
-            return View(_pcService.FindById(id));
+            var pc = _pcService.FindById(id);
+            var viewModel = new PcDetailsViewModel
+            {
+                Pc = _pcService.FindById(id),
+                Cpu = _pcService.FindCpuById(pc.CpuId),
+                Gpu = _pcService.FindGpuById(pc.GpuId)
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Delete(int id)
