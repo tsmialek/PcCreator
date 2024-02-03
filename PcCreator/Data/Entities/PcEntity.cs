@@ -20,9 +20,6 @@ namespace Data.Entities
         public string Name { get; set; }
 
         [Required]
-        public string Processor { get; set; }
-
-        [Required]
         public string RAM { get; set; }
 
         [Required]
@@ -31,13 +28,16 @@ namespace Data.Entities
         [Required]
         public string DiskType { get; set; }
 
-        [Required]
-        public string GPU { get; set; }
-
         public string? Manufacturer { get; set; }
 
         [Column("production_date")]
         public DateTime? ProductionDate { get; set; }
+
+        public int CpuId { get; set; }
+        public CpuEntity? Cpu { get; set; }
+
+        public int GpuId { get; set; }
+        public GpuEntity? Gpu { get; set;}
 
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240201223615_CpuEntity")]
+    partial class CpuEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
@@ -79,72 +81,6 @@ namespace Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Data.Entities.GpuEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Manufacturer")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("VRam")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Gpus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            FullName = "Nvidia GTX 1050",
-                            Manufacturer = "Nvidia",
-                            VRam = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            FullName = "Nvidia GTX 1060 GB",
-                            Manufacturer = "Nvidia",
-                            VRam = 6
-                        },
-                        new
-                        {
-                            Id = 3,
-                            FullName = "Nvidia GTX 1070",
-                            Manufacturer = "Nvidia",
-                            VRam = 8
-                        },
-                        new
-                        {
-                            Id = 4,
-                            FullName = "Nvidia GTX 1080",
-                            Manufacturer = "Nvidia",
-                            VRam = 8
-                        },
-                        new
-                        {
-                            Id = 5,
-                            FullName = "Nvidia GTX 2050",
-                            Manufacturer = "Nvidia",
-                            VRam = 4
-                        },
-                        new
-                        {
-                            Id = 6,
-                            FullName = "Nvidia GTX 2070",
-                            Manufacturer = "Nvidia",
-                            VRam = 8
-                        });
-                });
-
             modelBuilder.Entity("Data.Entities.PcEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -165,8 +101,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GpuId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("GPU")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Manufacturer")
                         .HasColumnType("TEXT");
@@ -174,6 +111,10 @@ namespace Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Processor")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ProductionDate")
@@ -187,8 +128,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CpuId");
-
-                    b.HasIndex("GpuId");
 
                     b.ToTable("Pcs");
                 });
@@ -221,15 +160,15 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d84612c9-083d-437d-ba77-98e241e4513f",
-                            ConcurrencyStamp = "d84612c9-083d-437d-ba77-98e241e4513f",
+                            Id = "184f15a7-f34f-4e81-bf6e-796d89982e08",
+                            ConcurrencyStamp = "184f15a7-f34f-4e81-bf6e-796d89982e08",
                             Name = "user",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "a3c8947b-caf2-4b00-ad9a-b0d56128eac6",
-                            ConcurrencyStamp = "a3c8947b-caf2-4b00-ad9a-b0d56128eac6",
+                            Id = "249f06e4-10de-4097-9ce1-08a819ff4c76",
+                            ConcurrencyStamp = "249f06e4-10de-4097-9ce1-08a819ff4c76",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         });
@@ -324,33 +263,33 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "64c9fde1-3580-412a-9b0b-47477e4c2fb7",
+                            Id = "38d1f2e1-c57e-48cd-8a4f-f10b6d64433b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a6f4bc91-53e2-43f9-9207-aefb2a7aec44",
+                            ConcurrencyStamp = "0c61fdd5-434c-453e-a1e0-3df9d343dfc8",
                             Email = "tomek@wsei.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TOMEK@WSEI.PL",
                             NormalizedUserName = "TOMEK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBABC4J0fq7v2LAxkCeQ78VHDiqC8CCq+tvDs1tHu6E1w0kvoRtByV4Lp3KRIeygsA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECEFB23aGirZI8+vAhFb8XU/XIyzMKRTt4iwMtJjD0pAbz87vjZopQ6OzL3na+UJSw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6bc5afea-cb38-47cb-bf5d-f5f035df4371",
+                            SecurityStamp = "838f231f-efeb-4d68-9683-647d5c9be379",
                             TwoFactorEnabled = false,
                             UserName = "tomek"
                         },
                         new
                         {
-                            Id = "06c2c3a2-8c6f-4c33-b068-a195558cbc1d",
+                            Id = "747129b4-2a07-4631-981f-20f150d996df",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7d2eb03e-a511-438f-88df-3bd1198ec333",
+                            ConcurrencyStamp = "4b15808f-59e9-42fd-8689-1c4df7b0fdfe",
                             Email = "kamil@wsei.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "KAMIL@WSEI.PL",
                             NormalizedUserName = "KAMIL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHjLdI2K/7HoVVXnUvd8KERxju9+b/6WYR+Ms3OIlidknUPFmPLWVmScvKtxuwWccA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMGFy0TrgEmx14Fl8uPzus5f/BDCSfRdxsu1Zs65/+CZe1ba/XXfzOuUTzgVJdVhEg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "682a00fd-c878-429a-aa44-c3e8d090976a",
+                            SecurityStamp = "b454f43a-3676-4de9-bcce-6f46255bfd87",
                             TwoFactorEnabled = false,
                             UserName = "kamil"
                         });
@@ -418,13 +357,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "64c9fde1-3580-412a-9b0b-47477e4c2fb7",
-                            RoleId = "a3c8947b-caf2-4b00-ad9a-b0d56128eac6"
+                            UserId = "38d1f2e1-c57e-48cd-8a4f-f10b6d64433b",
+                            RoleId = "249f06e4-10de-4097-9ce1-08a819ff4c76"
                         },
                         new
                         {
-                            UserId = "06c2c3a2-8c6f-4c33-b068-a195558cbc1d",
-                            RoleId = "d84612c9-083d-437d-ba77-98e241e4513f"
+                            UserId = "747129b4-2a07-4631-981f-20f150d996df",
+                            RoleId = "184f15a7-f34f-4e81-bf6e-796d89982e08"
                         });
                 });
 
@@ -455,15 +394,7 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.Entities.GpuEntity", "Gpu")
-                        .WithMany("Pcs")
-                        .HasForeignKey("GpuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Cpu");
-
-                    b.Navigation("Gpu");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -518,11 +449,6 @@ namespace Data.Migrations
                 });
 
             modelBuilder.Entity("Data.Entities.CpuEntity", b =>
-                {
-                    b.Navigation("Pcs");
-                });
-
-            modelBuilder.Entity("Data.Entities.GpuEntity", b =>
                 {
                     b.Navigation("Pcs");
                 });

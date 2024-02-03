@@ -22,10 +22,20 @@
             </div>
         </div>
 
-        <div class="form-floating mb-4">
+@*         <div class="form-floating mb-4">
             <input type="text" asp-for="Processor" id="" class="form-control @ViewData["ProcessorClass"]?.ToString()" placeholder="Model procesora" />
             <label for="" asp-for="Processor"></label>
             <span asp-validation-for="Processor" class="small text-danger"></span>
+        </div> *@
+
+        <div class="form-floating mb-4">
+            <select asp-for="CpuId" id="" class="form-control" asp-items="@Model.Cpus" placeholder="Model procesora"></select>
+            <label for="">Procesor</label>
+        </div>
+
+        <div class="form-floating mb-4">
+            <select asp-for="GpuId" id="" class="form-control" asp-items="@Model.Gpus" placeholder="Model karty graficznej"></select>
+            <label for="">Karta Graficzna</label>
         </div>
 
         <div class="form-floating mb-4">
@@ -34,11 +44,11 @@
             <span asp-validation-for="RAM" class="small text-danger"></span>
         </div>
 
-        <div class="form-floating mb-4">
+@*         <div class="form-floating mb-4">
             <input type="text" asp-for="GPU" id="" class="form-control @ViewData["GPUClass"]?.ToString()" placeholder="Model karty graficznej" />
             <label for="" asp-for="GPU"></label>
             <span asp-validation-for="GPU" class="small text-danger"></span>
-        </div>
+        </div> *@
 
         <div class="form-floating mb-4">
             <input type="Date" asp-for="ProductionDate" id="" class="form-control @ViewData["ProductionDateClass"]?.ToString()" placeholder="Model karty graficznej" />

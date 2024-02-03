@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PcCreator.Models;
+using PcCreator.Models.PcCreator;
 
 namespace PcCreator.Controllers
 {
@@ -23,7 +25,18 @@ namespace PcCreator.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            Pc model = new Pc();
+            model.Cpus = _pcService
+                .FindAllCpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                .ToList();
+
+            model.Gpus = _pcService
+                .FindAllGpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
+                .ToList();
+
+            return View(model);
         }
 
         [HttpPost]
@@ -36,15 +49,33 @@ namespace PcCreator.Controllers
             }
             else
             {
+                pc.Cpus = _pcService
+                    .FindAllCpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                    .ToList();
+
+                pc.Gpus = _pcService
+                    .FindAllGpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
+                    .ToList();
+
                 SetValidationClasses();
                 // Przekazanie słownika z błędami do widoku
-                return View(pc);   
+                return View(pc);
             }
         }
 
         public IActionResult Details(int id)
         {
-            return View(_pcService.FindById(id));
+            var pc = _pcService.FindById(id);
+            var viewModel = new PcDetailsViewModel
+            {
+                Pc = _pcService.FindById(id),
+                Cpu = _pcService.FindCpuById(pc.CpuId),
+                Gpu = _pcService.FindGpuById(pc.GpuId)
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Delete(int id)
@@ -56,7 +87,18 @@ namespace PcCreator.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_pcService.FindById(id));
+            var model = _pcService.FindById(id);
+            model.Cpus = _pcService
+                .FindAllCpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                .ToList();
+
+            model.Gpus = _pcService
+                .FindAllGpusForViewModel()
+                .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
+                .ToList();
+
+            return View(model);
         }
 
         [HttpPost]
@@ -69,6 +111,16 @@ namespace PcCreator.Controllers
             }
             else
             {
+                pc.Cpus = _pcService
+                    .FindAllCpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.Name })
+                    .ToList();
+
+                pc.Gpus = _pcService
+                    .FindAllGpusForViewModel()
+                    .Select(e => new SelectListItem() { Value = e.Id.ToString(), Text = e.FullName })
+                    .ToList();
+
                 SetValidationClasses();
 
                 // Zwróć ten sam widok z aktualnym modelem do poprawy

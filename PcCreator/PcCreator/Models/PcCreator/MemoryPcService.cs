@@ -1,4 +1,5 @@
-﻿using PcCreator.Models.PcCreator;
+﻿using Data.Entities;
+using PcCreator.Models.PcCreator;
 
 namespace PcCreator.Models
 {
@@ -33,9 +34,29 @@ namespace PcCreator.Models
                 return false;
         }
 
+        public List<CpuEntity> FindAllCpusForViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<GpuEntity> FindAllGpusForViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
         public Pc? FindById(int id)
         {
             return _pcs.ContainsKey(id) ? _pcs[id] : null;
+        }
+
+        public CpuEntity? FindCpuById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public GpuEntity? FindGpuById(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Pc> GetAll()
