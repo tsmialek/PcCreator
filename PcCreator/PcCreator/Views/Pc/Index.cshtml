@@ -8,11 +8,20 @@
 }
 
 <div class="container-md card d-flex flex-column justify-content-center mb-4 mt-5 px-5">
+
     <h1 class="display-5 text-center mb-4 mt-5">Twoje zestawy komputerowe:</h1>
+
     <a class="btn btn-primary mx-auto mb-4" asp-controller="Pc" asp-action="Create">
         <i class="fa fa-plus"></i>
         Dodaj zestaw
     </a>
+
+    <a class="btn btn-primary mx-auto mb-4" asp-controller="Pc" asp-action="CreateApi">
+        <i class="fa fa-plus"></i>
+        Dodaj zestaw (Wersja API)
+    </a>
+
+
 
     <table class="table table-hover table-striped mb-5">
         @if (Model.Any())

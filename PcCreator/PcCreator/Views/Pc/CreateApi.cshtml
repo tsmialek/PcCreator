@@ -4,7 +4,7 @@
 *@
 @{
 }
-<form asp-action="Create" asp-controller="Pc" method="post">
+<form asp-action="CreateApi" asp-controller="Pc" method="post">
     <div class="container-md card d-flex flex-column justify-content-center mb-5 mt-5 px-5">
         <!-- Form -->
         <h1 class="display-5 text-center mb-5 mt-5">Wprowadź podzespoły swojego komputera:</h1>
@@ -28,14 +28,20 @@
         <span asp-validation-for="Processor" class="small text-danger"></span>
         </div> *@
 
-        <div class="form-floating mb-4">
-            <select asp-for="CpuId" id="" class="form-control" asp-items="@Model.Cpus" placeholder="Model procesora"></select>
+        <div class="form-group mb-4">
+            <label for="filter">Filtruj CPU</label>
+            <input class="form-control mb-3" type="text" name="filterCpu" id="filterCpu" />
             <label for="">Procesor</label>
+            <select asp-for="CpuId" id="CpuId" class="form-control"></select>
+            <span asp-validation-for="CpuId" class="small text-danger"></span>
         </div>
 
-        <div class="form-floating mb-4">
-            <select asp-for="GpuId" id="" class="form-control" asp-items="@Model.Gpus" placeholder="Model karty graficznej"></select>
+        <div class="form-group mb-4">
+            <label for="filter">Filtruj GPU</label>
+            <input class="form-control mb-3" type="text" name="filterGpu" id="filterGpu" />
             <label for="">Karta Graficzna</label>
+            <select asp-for="GpuId" id="GpuId" class="form-control"></select>
+            <span asp-validation-for="GpuId" class="small text-danger"></span>
         </div>
 
         <div class="form-floating mb-4">
@@ -81,31 +87,62 @@
 
 @section Scripts {
     <script>
-        let select = document.getElementById("OrganizationId");
-        let filter = document.getElementById("filter");
-        filter.onchange = function (e) {
-            if (filter.value.lenght == 0) {
+        let selectGpu = document.getElementById("GpuId");
+        let filterGpu = document.getElementById("filterGpu");
+        
+        let selectCpu = document.getElementById("CpuId");
+        let filterCpu = document.getElementById("filterCpu")
+
+        filterGpu.oninput = function (e) {
+            if (filterGpu.value.length === 0) {
                 return;
             }
-            fetch(`/api/contacts?filter=${filter.value}`)
+            fetch(`/api/gpus?filterGpu=${filterGpu.value}`)
                 .then(response => {
                     if (response.ok) {
-                        return response.json()
+                        return response.json();
                     }
                     throw "No OK, actual status " + response.status;
                 })
                 .then(json => {
-                    select.innerHTML = '';
+                    selectGpu.innerHTML = '';
                     for (let item of json) {
                         let option = document.createElement('option');
                         option.setAttribute('value', item.id);
-                        option.innerText = item.title;
-                        select.appendChild(option);
+                        option.innerText = item.fullName; 
+                        selectGpu.appendChild(option);
                     }
                 })
                 .catch(e => {
-                    console.log('Cant get data from api', e);
+                    console.log('Can\'t get data from API', e);
                 });
         };
+
+        filterCpu.oninput = function (e) {
+            if (filterCpu.value.length === 0) {
+                return;
+            }
+            fetch(`/api/cpus?filterCpu=${filterCpu.value}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw "No OK, actual status " + response.status;
+                })
+                .then(json => {
+                    selectCpu.innerHTML = '';
+                    for (let item of json) {
+                        let option = document.createElement('option');
+                        option.setAttribute('value', item.id);
+                        option.innerText = item.name;
+                        selectCpu.appendChild(option);
+                    }
+                })
+                .catch(e => {
+                    console.log('Can\'t get data from API', e);
+                });
+        };
+
+
     </script>
 }
