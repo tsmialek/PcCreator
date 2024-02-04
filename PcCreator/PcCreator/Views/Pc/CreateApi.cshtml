@@ -1,0 +1,111 @@
+﻿@model Pc
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<form asp-action="Create" asp-controller="Pc" method="post">
+    <div class="container-md card d-flex flex-column justify-content-center mb-5 mt-5 px-5">
+        <!-- Form -->
+        <h1 class="display-5 text-center mb-5 mt-5">Wprowadź podzespoły swojego komputera:</h1>
+        <div class="row g-2 mb-4">
+            <div class="form-floating col-md">
+                <input type="text" asp-for="Name" id="nazwaZestawu" class="form-control @ViewData["NameClass"]?.ToString()" placeholder="Nazwa zestawu" />
+                <label for="nazwaZestawu" asp-for="Name"></label>
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+
+            <div class="form-floating col-md">
+                <input type="text" asp-for="Manufacturer" id="producent" class="form-control @ViewData["ManufacturerClass"]?.ToString()" placeholder="Producent" />
+                <label for="modelGPU" asp-for="Manufacturer"></label>
+                <span asp-validation-for="Manufacturer" class="small text-danger"></span>
+            </div>
+        </div>
+
+        @*         <div class="form-floating mb-4">
+        <input type="text" asp-for="Processor" id="" class="form-control @ViewData["ProcessorClass"]?.ToString()" placeholder="Model procesora" />
+        <label for="" asp-for="Processor"></label>
+        <span asp-validation-for="Processor" class="small text-danger"></span>
+        </div> *@
+
+        <div class="form-floating mb-4">
+            <select asp-for="CpuId" id="" class="form-control" asp-items="@Model.Cpus" placeholder="Model procesora"></select>
+            <label for="">Procesor</label>
+        </div>
+
+        <div class="form-floating mb-4">
+            <select asp-for="GpuId" id="" class="form-control" asp-items="@Model.Gpus" placeholder="Model karty graficznej"></select>
+            <label for="">Karta Graficzna</label>
+        </div>
+
+        <div class="form-floating mb-4">
+            <input type="text" asp-for="RAM" id="" class="form-control @ViewData["RAMClass"]?.ToString()" placeholder="Pamięć RAM" />
+            <label for="" asp-for="RAM"></label>
+            <span asp-validation-for="RAM" class="small text-danger"></span>
+        </div>
+
+        @*         <div class="form-floating mb-4">
+        <input type="text" asp-for="GPU" id="" class="form-control @ViewData["GPUClass"]?.ToString()" placeholder="Model karty graficznej" />
+        <label for="" asp-for="GPU"></label>
+        <span asp-validation-for="GPU" class="small text-danger"></span>
+        </div> *@
+
+        <div class="form-floating mb-4">
+            <input type="Date" asp-for="ProductionDate" id="" class="form-control @ViewData["ProductionDateClass"]?.ToString()" placeholder="Model karty graficznej" />
+            <label for="" asp-for="ProductionDate"></label>
+            <span asp-validation-for="ProductionDate" class="small text-danger"></span>
+        </div>
+
+        <div class="row g-2 mb-5">
+            <div class="form-floating col-6">
+                <input type="text" asp-for="Disk" id="" class="form-control @ViewData["DiskClass"]?.ToString()" placeholder="Model dysku" />
+                <label for="" asp-for="Disk"></label>
+                <span asp-validation-for="Disk" class="small text-danger"></span>
+            </div>
+            <div class="form-floating col-6">
+                <select asp-for="DiskType" asp-items="@Html.GetEnumSelectList<DiskType>()" class="form-control @ViewData["DiskTypeClass"]?.ToString()" placeholder="Typ dysku"></select>
+                <label for="" asp-for="DiskType"></label>
+                <span asp-validation-for="DiskType" class="small text-danger"></span>
+            </div>
+            @*         <button type="button" class="btn btn-primary col-2" id="addFieldButton">
+            <i class="fa fa-plus"></i>
+            </button> *@
+        </div>
+
+        <div class="d-flex flex-row justify-content-around">
+            <button type="submit" class="btn btn-primary col-3 mb-4">Zapisz</button>
+            <a class="btn btn-secondary col-3 mb-4" asp-action="Index"><i class="fa fa-backward"></i> Cofnij</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let select = document.getElementById("OrganizationId");
+        let filter = document.getElementById("filter");
+        filter.onchange = function (e) {
+            if (filter.value.lenght == 0) {
+                return;
+            }
+            fetch(`/api/contacts?filter=${filter.value}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json()
+                    }
+                    throw "No OK, actual status " + response.status;
+                })
+                .then(json => {
+                    select.innerHTML = '';
+                    for (let item of json) {
+                        let option = document.createElement('option');
+                        option.setAttribute('value', item.id);
+                        option.innerText = item.title;
+                        select.appendChild(option);
+                    }
+                })
+                .catch(e => {
+                    console.log('Cant get data from api', e);
+                });
+        };
+    </script>
+}

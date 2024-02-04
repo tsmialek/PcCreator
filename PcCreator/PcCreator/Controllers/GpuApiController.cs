@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace PcCreator.Controllers
 {
-    [Route("api/cpus")]
+    [Route("api/gpus")]
     [ApiController]
     public class GpuApiController : ControllerBase
     {
@@ -19,9 +19,9 @@ namespace PcCreator.Controllers
         [HttpGet]
         public IActionResult GetFiltered(string filter)
         {
-            return Ok(_context.Cpus
-                .Where(c => c.Name.Contains(filter))
-                .Select(c => new { c.Name, c.Id })
+            return Ok(_context.Gpus
+                .Where(g => g.FullName.Contains(filter))
+                .Select(g => new { g.Id, g.FullName, g.VRam })
                 .ToList());
         }
     }
