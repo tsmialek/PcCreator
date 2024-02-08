@@ -65,6 +65,26 @@ namespace PcCreator.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult CreateApi()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateApi(Pc pc)
+        {
+            if (ModelState.IsValid)
+            {
+                _pcService.Add(pc);
+                return RedirectToAction("Index");
+            }
+
+            SetValidationClasses();
+            Console.WriteLine("Błąd walidacji");
+            return View(pc);
+        }
+
         public IActionResult Details(int id)
         {
             var pc = _pcService.FindById(id);

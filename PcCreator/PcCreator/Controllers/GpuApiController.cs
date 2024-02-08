@@ -17,11 +17,11 @@ namespace PcCreator.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetFiltered(string filter)
+        public IActionResult GetFiltered(string filterGpu)
         {
             return Ok(_context.Gpus
-                .Where(g => g.FullName.Contains(filter))
-                .Select(g => new { g.Id, g.FullName, g.VRam })
+                .Where(g => g.FullName.Contains(filterGpu))
+                .Select(g => new { g.Id, g.FullName })
                 .ToList());
         }
     }
