@@ -135,7 +135,10 @@ namespace Data
                 new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 1070", VRam = 8, Id = 3 },
                 new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 1080", VRam = 8, Id = 4 },
                 new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 2050", VRam = 4, Id = 5 },
-                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 2070", VRam = 8, Id = 6 }
+                new GpuEntity() {Manufacturer = "Nvidia", FullName = "Nvidia GTX 2070", VRam = 8, Id = 6 },
+                new GpuEntity() {Manufacturer = "Radeon", FullName = "Radeon RX 570", VRam = 4, Id = 7 },
+                new GpuEntity() { Manufacturer = "Radeon", FullName = "Radeon RX 580", VRam = 8, Id = 8 },
+                new GpuEntity() { Manufacturer = "Radeon", FullName = "Radeon RX 590", VRam = 8, Id = 9 }
                 );
 
             modelBuilder.Entity<CpuEntity>().HasData(
@@ -167,6 +170,36 @@ namespace Data
                     Threads = 16,
                     Frequency = 3.6f,
                     TurboFrequency = 5.0f,
+                    L3Cache = 16
+                },
+                new CpuEntity
+                {
+                    Id = 4, 
+                    Name = "AMD Ryzen 5 2600",
+                    Cores = 6,
+                    Threads = 12,
+                    Frequency = 3.4f,
+                    TurboFrequency = 3.9f,
+                    L3Cache = 16
+                },
+                new CpuEntity
+                {
+                    Id = 5,
+                    Name = "AMD Ryzen 7 2700",
+                    Cores = 8,
+                    Threads = 16,
+                    Frequency = 3.2f,
+                    TurboFrequency = 4.1f,
+                    L3Cache = 16
+                },
+                new CpuEntity
+                {
+                    Id = 6,
+                    Name = "AMD Ryzen 7 2700x",
+                    Cores = 8,
+                    Threads = 16,
+                    Frequency = 3.7f,
+                    TurboFrequency = 4.3f,
                     L3Cache = 16
                 }
                 );

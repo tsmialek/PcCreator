@@ -30,7 +30,7 @@
 
         <div class="form-group mb-4">
             <label for="filter">Filtruj CPU</label>
-            <input class="form-control mb-3" type="text" name="filterCpu" id="filterCpu" />
+            <input class="form-control mb-3" type="text" name="filterCpu" id="filterCpu" placeholder="Uwzględniamy wielkość liter"/>
             <label for="">Procesor</label>
             <select asp-for="CpuId" id="CpuId" class="form-control"></select>
             <span asp-validation-for="CpuId" class="small text-danger"></span>
@@ -38,7 +38,7 @@
 
         <div class="form-group mb-4">
             <label for="filter">Filtruj GPU</label>
-            <input class="form-control mb-3" type="text" name="filterGpu" id="filterGpu" />
+            <input class="form-control mb-3" type="text" name="filterGpu" id="filterGpu" placeholder="Uwzględniamy wilekość liter"/>
             <label for="">Karta Graficzna</label>
             <select asp-for="GpuId" id="GpuId" class="form-control"></select>
             <span asp-validation-for="GpuId" class="small text-danger"></span>
