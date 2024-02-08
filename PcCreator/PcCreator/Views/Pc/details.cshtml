@@ -30,21 +30,30 @@
                 if (property.Name != "Id" && property.Name != "CpuId" && property.Name != "GpuId" && property.Name != "Created" && property.Name != "ProductionDate" 
                     && property.Name != "Cpus" && property.Name != "Gpus")
                 {
-
-
                     <tr>
                         <td>@displayName</td>
-                        <td>@property.GetValue(Model.Pc)</td>
+                        <td>@(property.GetValue(Model.Pc) ?? "---")</td>
                     </tr>
                 }
 
                 if(property.Name == "Created" || property.Name == "ProductionDate")
                 {
-                    DateTime propertyValue = (DateTime)property.GetValue(Model.Pc);
-                    <tr>
-                        <td>@displayName</td>
-                        <td>@propertyValue.Date.ToString("dd-MM-yyyy")</td>
-                    </tr>
+                    if(property.GetValue(Model.Pc) is null)
+                    {
+                         <tr>
+                            <td>@displayName</td>
+                            <td>---</td>
+                        </tr>
+
+                    }
+                    else
+                    {
+                         DateTime propertyValue = (DateTime)property.GetValue(Model.Pc);
+                        <tr>
+                            <td>@displayName</td>
+                            <td>@propertyValue.Date.ToString("dd-MM-yyyy")</td>
+                        </tr>
+                    }
                 }
             }
             <thead class="table-primary">
